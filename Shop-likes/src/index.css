@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: auto !important; /* Disabling CSS smooth scroll for GSAP compatibility */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hardware acceleration for major containers */
+#root {
+    min-height: 100vh;
+}
+
+.about-main-container, .section-big-card {
+    will-change: background-color, transform;
+}
+
+.about-image {
+    will-change: opacity;
+}
+
+@font-face{
+    font-family: "fontnormal";
+    src: url("../public/fonts/NotoSansGothic-Regular.ttf") format("truetype");
+}
+
+@font-face{
+    font-family: "fonthero";
+    src: url("../public/fonts/NotoSerif-VariableFont_wdth\,wght.ttf") format("truetype");
+}
+
+.movelink {
+    opacity: 0;
+    transform: translateY(-8px);   
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+}
+
+.link:hover .movelink {
+    opacity: 1;
+    transform: translateY(0); 
+}
+
+.movex {
+    animation: moveAnimation 5s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+@keyframes moveAnimation {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); } /* Fixed jump in marquee */
+}
