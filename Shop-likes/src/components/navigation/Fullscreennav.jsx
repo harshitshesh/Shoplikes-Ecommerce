@@ -56,9 +56,9 @@ const Fullscreennav = () => {
 
 
     return (
-        <div className='fullnav hidden   text-white overflow-y-hidden h-screen w-full absolute z-100 '>
+        <div className='fullnav hidden text-white overflow-hidden h-screen w-full fixed z-[99999] top-0 left-0 bg-transparent'>
 
-            <div className='h-screen w-full fixed'>
+            <div className='h-screen w-full absolute inset-0 z-0'>
                 <div className="h-full w-full flex">
 
                     <div className="stairnav h-full w-1/5 bg-black"></div>
@@ -70,9 +70,9 @@ const Fullscreennav = () => {
             </div>
             
 
-            <div ref={allnavlinksref} className='relative'>
+            <div ref={allnavlinksref} className='relative z-10'>
 
-                <div className='flex w-full justify-between items-start '>
+                <div className='flex w-full justify-between items-start'>
 
                     <div className='m-1.5 ' >
                         <Link to="/" onClick={() => setnavopen(false)}>

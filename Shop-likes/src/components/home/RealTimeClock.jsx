@@ -28,7 +28,7 @@ const RealTimeClock = () => {
   return (
     <div className='flex flex-col text-sm md:text-base font-[fontnormal] text-white/70'>
       <div className='tracking-widest font-mono'>{formatDate(time)}</div>
-      <div className='font-bold text-white font-serif'>{formatTime(time)}</div>
+      <div className='font-bold text-2xl text-white font-serif'>{formatTime(time)}</div>
     </div>
   )
 }

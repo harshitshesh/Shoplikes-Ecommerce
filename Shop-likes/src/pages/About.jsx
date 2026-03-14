@@ -4,210 +4,192 @@ import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from 'gsap/all'
 import Footer from '../components/comon/Footer'
 
+gsap.registerPlugin(ScrollTrigger)
+
 const About = () => {
   const containerRef = useRef(null)
-  const storyRef = useRef(null)
-  const bigCardRef = useRef(null)
 
-  const imgarr = [
-    "img2", "img4", "img6", "img7", "img9", "img3"
+  const cardsData = [
+    {
+      img: "img2",
+      subtitle: "01 — The Genesis",
+      title: "Visionary Threads",
+      desc: "Every collection begins with a blank canvas and a relentless pursuit of perfection. We source the finest materials to construct garments that speak volumes in their silence."
+    },
+    {
+      img: "img4",
+      subtitle: "02 — The Craft",
+      title: "Artisan Mastery",
+      desc: "Our silhouettes endure time. We blend traditional tailoring with avant-garde aesthetics to ensure every stitch holds a purposeful place in your wardrobe."
+    },
+    {
+      img: "img6",
+      subtitle: "03 — The Aesthetic",
+      title: "Modern Solitude",
+      desc: "Embracing minimalism isn't about having less; it's about making room for more of what matters. A curated aesthetic for the discerning individual."
+    },
+    {
+      img: "img7",
+      subtitle: "04 — The Ethics",
+      title: "Sustainable Ethos",
+      desc: "Luxury redefined through responsibility. We believe in fashion that leaves a lasting impression on you, without leaving a scar on our planet."
+    },
+    {
+      img: "img9",
+      subtitle: "05 — The Horizon",
+      title: "Forward Motion",
+      desc: "We don't just follow trends—we anticipate the future. Pushing boundaries and redefining the modern uniform for generations to come."
+    }
   ]
 
-  gsap.registerPlugin(ScrollTrigger)
-
   useGSAP(() => {
-    // 1. SIDE-BY-SIDE PINNING LOGIC
-    const images = gsap.utils.toArray(".about-image")
-    gsap.set(images, { opacity: 0 })
-    gsap.set(images[0], { opacity: 1 })
+    const panels = gsap.utils.toArray('.gsap-panel')
 
-    // PIN the image container while the right side scrolls
-    ScrollTrigger.create({
-      trigger: ".about-story-section",
-      start: "top top",
-      end: "bottom bottom",
-      pin: ".sticky-img-container",
-      pinSpacing: true, // Ensuring space is maintained for the side-scrolling effect
-      scrub: 1,
-      id: "master-pin"
-    })
-
-    // 2. STORY TIMELINE (for background and images)
-    const storyCards = gsap.utils.toArray(".story-card")
-    
-    const mainTL = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".about-story-section",
+    panels.forEach((panel, i) => {
+      // Pin current panel so next panel scrolls *OVER* it because of pinSpacing: false
+      ScrollTrigger.create({
+        trigger: panel,
         start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-      }
-    })
+        pin: true, 
+        pinSpacing: false,
+        id: `pin-${i}`
+      })
 
-    // Background transition to professional radial gradient & text color adjustment
-    mainTL.to(containerRef.current, {
-      background: "radial-gradient(circle at center, #1a1a2e 0%, #000000 100%)",
-      duration: 1,
-    }, 0)
-    .to(".story-card h2, .story-card p", {
-      color: "#f5f5f5",
-      duration: 1,
-    }, 0)
-    .to(".about-main-container h1, .about-main-container p:not(.story-card p)", {
-      color: "#ffffff",
-      opacity: 0.1,
-      duration: 1,
-    }, 0)
-
-    // Image swaps and text entrances
-    storyCards.forEach((card, i) => {
-      // Image swap
-      if (i > 0 && i < images.length) {
-        mainTL.to(images[i-1], { opacity: 0, duration: 0.5 }, i)
-              .to(images[i], { opacity: 1, duration: 0.5 }, i)
-      }
-
-      // Individual text card animations
-      gsap.fromTo(card.querySelector("div"), 
-        { y: 60, opacity: 0 },
-        { 
-          y: 0, 
-          opacity: 1, 
-          duration: 1,
+      const inner = panel.querySelector('.panel-inner')
+      
+      // If there is a NEXT panel, scale this current panel DOWN as the next panel scrolls UP
+      if (i < panels.length - 1) {
+        gsap.to(inner, {
+          scale: 0.85,
+          opacity: 0,
+          borderRadius: "2rem",
+          ease: "none",
           scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-            end: "top 40%",
-            scrub: 1,
+            trigger: panels[i + 1],
+            start: "top bottom",
+            end: "top top",
+            scrub: true
           }
-        }
-      )
+        })
+      }
+      
+      // If there is a PREVIOUS panel, scale this current panel UP as it scrolls IN
+      if (i > 0) {
+        gsap.from(inner, {
+          scale: 0.9,
+          borderRadius: "2rem",
+          ease: "none",
+          scrollTrigger: {
+            trigger: panel,
+            start: "top bottom",
+            end: "top top",
+            scrub: true
+          }
+        })
+      }
+
+      // Text Entrance Animation (Fades Up gracefully as the panel comes into view)
+      const content = panel.querySelector('.panel-content')
+      if (content) {
+        gsap.fromTo(content,
+          { y: 60, opacity: 0 },
+          {
+            y: 0, 
+            opacity: 1, 
+            ease: "none",
+            scrollTrigger: {
+              trigger: panel,
+              start: "top 70%", // wait until panel is mostly in view
+              end: "top 30%",
+              scrub: true
+            }
+          }
+        )
+      }
     })
 
-    // 3. BIG CARD ENTRANCE
-    gsap.fromTo(bigCardRef.current, 
-      { y: 150, opacity: 0, scale: 0.95 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        scrollTrigger: {
-          trigger: ".section-big-card",
-          start: "top 85%",
-          end: "top 30%",
-          scrub: 1
-        }
-      }
-    )
+    ScrollTrigger.refresh()
   }, { scope: containerRef })
 
   return (
-    <div ref={containerRef} className='about-main-container bg-white overflow-x-hidden min-h-screen transition-all duration-1000 ease-in-out'>
+    <div ref={containerRef} className='about-main-container bg-[#0a0a0a] overflow-x-hidden min-h-screen'>
       
-      {/* Hero Header */}
-      <div className="pt-40 px-6 md:px-20 mb-20 text-center">
-        <h1 className='font-[fonthero] text-[18vw] md:text-[15vw] uppercase leading-none opacity-5 text-neutral-900 tracking-tighter'>Essence</h1>
-        <p className='text-sm md:text-lg uppercase tracking-[0.5em] text-neutral-400 mt-[-2vw] ml-[2vw]'>The Soul of Curated Fashion</p>
-      </div>
-
-      {/* Main Story Section - Standard Side-by-Side Pinning */}
-      <div className="about-story-section relative flex flex-col md:flex-row w-full h-fit px-6 md:px-20 overflow-visible gap-10">
-        
-        {/* LEFT: PINNED IMAGE SECTION */}
-        <div className="sticky-img-container w-full md:w-1/2 h-[60vh] md:h-screen flex items-center justify-center z-10">
-          <div className='h-[60vh] md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] relative bg-neutral-900 border border-white/5'>
-            {imgarr.map((img, index) => (
-              <img 
-                key={index}
-                className='about-image h-full w-full object-cover absolute top-0 left-0 will-change-opacity' 
-                src={`../img/${img}.jpg`} 
-                alt={`product ${index}`} 
-              />
-            ))}
-            <div className='absolute inset-0 bg-black/10'></div>
-          </div>
-        </div>
-
-        {/* RIGHT: SCROLLING CONTENT SECTION */}
-        <div className="scrolling-content w-full md:w-1/2 relative z-20">
-          
-          <div className="story-card min-h-[100vh] flex items-center justify-start py-20">
-            <div className="max-w-xl">
-              <span className='text-[#c0e067] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4'>01 — Philosophy</span>
-              <h2 className='font-[fonthero] text-6xl md:text-8xl uppercase mb-6 leading-[0.8] text-neutral-900 tracking-tighter'>
-                Modern <br /> Vision
-              </h2>
-              <p className='text-xl md:text-2xl text-neutral-700 leading-tight font-[fontnormal]'>
-                At Shop Likes, we redefine the "Essential". Every piece is a dialogue between timeless architecture and contemporary ease.
-              </p>
-            </div>
-          </div>
-
-          <div className="story-card min-h-[100vh] flex items-center justify-start py-20">
-            <div className="max-w-xl">
-              <span className='text-[#c0e067] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4'>02 — Quality</span>
-              <h2 className='font-[fonthero] text-6xl md:text-8xl uppercase mb-6 leading-[0.8] text-neutral-900 tracking-tighter'>
-                Pure <br /> Detail
-              </h2>
-              <p className='text-xl md:text-2xl text-neutral-700 leading-tight font-[fontnormal]'>
-                High-end materials meet minimalist intention. We celebrate the grain, the texture, and the hidden detail.
-              </p>
-            </div>
-          </div>
-
-          <div className="story-card min-h-[100vh] flex items-center justify-start py-20">
-            <div className="max-w-xl">
-              <span className='text-[#c0e067] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4'>03 — Lifestyle</span>
-              <h2 className='font-[fonthero] text-6xl md:text-8xl uppercase mb-6 leading-[0.8] text-neutral-900 tracking-tighter'>
-                Unspoken <br /> Comfort
-              </h2>
-              <p className='text-xl md:text-2xl text-neutral-400 font-light italic leading-relaxed'>
-                "The things you wear every day should inspire you. They should be a foundation for your unique expression."
-              </p>
-            </div>
-          </div>
-
-          <div className="story-card min-h-[100vh] flex items-center justify-start py-20 pb-40">
-            <div className="max-w-xl">
-              <span className='text-[#c0e067] font-mono text-[10px] tracking-[0.4em] uppercase block mb-4'>04 — Future</span>
-              <h2 className='font-[fonthero] text-6xl md:text-8xl uppercase mb-6 leading-[0.8] text-neutral-900 tracking-tighter'>
-                Timeless <br /> Rhythm
-              </h2>
-              <p className='text-md md:text-lg text-neutral-500 uppercase tracking-[0.2em] leading-relaxed'>
-                Shop Likes is a commitment to a curated lifestyle that transcends seasonal trends.
-              </p>
-            </div>
-          </div>
-
+      {/* Hero Header panel */}
+      <div className="gsap-panel h-screen w-full relative z-10 bg-black pt-40 px-6 md:px-20">
+        <div className="panel-inner w-full h-full relative flex flex-col items-center justify-center text-center overflow-hidden">
+          <h1 className='font-[fonthero] text-white text-[15vw] md:text-[12vw] uppercase leading-none tracking-tighter'>
+            The Essence
+          </h1>
+          <p className='text-sm md:text-xl uppercase tracking-[0.4em] text-white/70 mt-4 md:mt-8 max-w-2xl'>
+            Curated luxury for the modern visionary. Scroll to discover.
+          </p>
         </div>
       </div>
 
-      {/* Big Format Card Section */}
-      <div className="section-big-card min-h-screen flex items-center justify-center py-60 px-6 relative z-30">
+      {/* Structured Overlapping Panels */}
+      {cardsData.map((data, index) => (
         <div 
-          ref={bigCardRef}
-          className="w-full max-w-[95vw] h-[80vh] md:h-[90vh] rounded-[3rem] md:rounded-[5rem] overflow-hidden relative shadow-2xl border border-white/10"
+          key={index} 
+          className="gsap-panel h-[100dvh] md:h-screen w-full relative flex items-center justify-center bg-transparent"
+          style={{ zIndex: index + 20 }} // Increasing Z-index ensures the next panel inherently spans OVER the previous
         >
+          {/* Inner container handles the GSAP Scaling Effect smoothly */}
+          <div className="panel-inner absolute inset-0 w-full h-full bg-black overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+            
+            {/* Background Image validated from your public folder */}
+            <img 
+              className="panel-img w-full h-full object-top object-cover opacity-80"
+              src={`../img/${data.img}.jpg`} 
+              alt={data.title}
+            />
+            
+            {/* Dark Overlay for Text Pop */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
+
+            {/* Premium Typographic Content */}
+            <div className="panel-content absolute inset-0 w-full h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-end pb-24 md:pb-32 text-left pointer-events-none">
+              <span className="text-[#c0e067] font-mono text-xs md:text-sm tracking-[0.3em] uppercase block mb-4 drop-shadow-md">
+                {data.subtitle}
+              </span>
+              <h2 className="text-white font-[fonthero] text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.9] tracking-tighter mb-8 drop-shadow-2xl">
+                {data.title.split(' ')[0]} <br className="hidden md:block" />
+                {data.title.split(' ').slice(1).join(' ')}
+              </h2>
+              <div className="w-[60px] h-[2px] bg-white/40 mb-6 drop-shadow-md"></div>
+              <p className="text-white/80 text-lg md:text-2xl font-[fontnormal] leading-relaxed max-w-2xl drop-shadow-lg">
+                {data.desc}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* Big Format Statement Section gracefully concludes the stack */}
+      <div className="gsap-panel h-screen w-full relative bg-black flex items-center justify-center px-6" style={{ zIndex: 100 }}>
+        <div className="panel-inner w-full xl:max-w-6xl h-[60vh] md:h-[70vh] rounded-[3rem] md:rounded-[5rem] overflow-hidden relative shadow-2xl border border-white/10 group">
           <img 
-            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-2000 ease-out" 
-            src="../img/img8.jpg" 
+            className="w-full h-full object-cover grayscale transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:scale-105" 
+            src="../img/img3.jpg" 
             alt="Brand Statement" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-24">
-            <span className='text-[#c0e067] font-mono text-xs md:text-sm tracking-[0.4em] uppercase mb-4'>Statement Collection</span>
-            <h2 className="text-white font-[fonthero] text-[10vw] md:text-[6vw] uppercase leading-[0.9] mb-8 max-w-4xl tracking-tighter">
-              Bold Intention ` Minimalist Execution
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8 md:p-24 pointer-events-none">
+            <span className='text-[#c0e067] font-mono text-xs md:text-sm tracking-[0.4em] uppercase mb-4'>The Final Statement</span>
+            <h2 className="text-white font-[fonthero] text-5xl md:text-[6vw] uppercase leading-[0.9] mb-8 max-w-4xl tracking-tighter">
+              Bold Intention <br/> Minimal Execution
             </h2>
             <div className='flex flex-col md:flex-row gap-10 items-end justify-between'>
-              <p className="text-white/60 max-w-md text-sm md:text-xl font-[fontnormal] leading-relaxed uppercase tracking-widest">
-                Built for the modern human. We celebrate the texture and the intention in every piece.
+              <p className="text-white/70 max-w-md text-sm md:text-xl font-[fontnormal] leading-relaxed uppercase tracking-widest">
+                Join the conversation. Elevate your presence today.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <Footer />
+      <div className="relative z-[200] bg-[#0a0a0a]">
+        <Footer />
+      </div>
+
     </div>
   )
 }

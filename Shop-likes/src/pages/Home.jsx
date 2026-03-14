@@ -17,8 +17,8 @@ const Home = () => {
         {/* Dynamic Info Section */}
         <div className='flex justify-end items-end w-full m-6 px-4'>
           {/* Right: Info Paragraph */}
-          <div className='max-w-md text-white/80 font-[fontnormal] text-right'>
-            <p className='text-[12px] md:text-sm leading-relaxed uppercase tracking-widest'>
+          <div className='max-w-md text-white/80  font-[fontnormal] text-right'>
+            <p className='text-[22px] font-bold md:text-sm leading-relaxed uppercase tracking-widest'>
               Shop Likes ` defines a new era of curated fashion. We blend timeless silhouettes with modern intention, creating a seamless transition between comfort and high-end design for the rhythm of daily life.
             </p>
           </div>
