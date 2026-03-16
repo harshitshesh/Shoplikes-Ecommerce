@@ -21,8 +21,8 @@ const GlobalBackButton = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [location])
 
-  // Don't render if we're on Home OR if the main Fullscreen Menu is open!
-  if (isHome || navopen) return null
+  // Don't render if we're on Home OR if the main Fullscreen Menu is open OR if not scrolled!
+  if (isHome || navopen || !scrolled) return null
 
   return (
     <Link

@@ -10,7 +10,7 @@ const Navbar = () => {
   const isHome = location.pathname === "/"
   return (
     <>
-      <div className='absolute flex top-0 w-full items-start justify-between z-[100] p-6 pointer-events-none'>
+      <div className='absolute flex top-0 w-full items-start justify-between z-[150] p-6 pointer-events-none'>
         {/* Left side: Logo only */}
         <div className='flex flex-col gap-8 pointer-events-auto'>
           <Link to="/">
