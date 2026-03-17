@@ -103,6 +103,7 @@ const Productscard = memo(({ searchQuery = "", onExploreDetail }) => {
           rotation: 0,
           duration: 1.2,
           ease: "power3.out",
+          force3D: true,
           scrollTrigger: {
             trigger: card,
             start: "top 100%", // Start when top of card hits bottom of viewport

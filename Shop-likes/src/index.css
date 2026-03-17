@@ -56,3 +56,34 @@ body {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); } /* Fixed jump in marquee */
 }
+
+/* Performance Optimizations */
+.gsap-panel {
+  will-change: transform;
+}
+
+.panel-inner {
+  will-change: transform, opacity, border-radius;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.panel-img {
+  will-change: transform;
+  transform: translateZ(0); 
+}
+
+.navlinks .link {
+  will-change: transform, opacity;
+}
+
+.movelink {
+  will-change: transform;
+}
+
+/* Optimization for mobile scroll lag */
+@media (max-width: 768px) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}

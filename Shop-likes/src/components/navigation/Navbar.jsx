@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 
 const Navbar = () => {
-  const [navopen, setnavopen] = useContext(Navbarcontext)
+  const { navopen, setnavopen } = useContext(Navbarcontext)
   const location = useLocation()
   const isHome = location.pathname === "/"
   return (

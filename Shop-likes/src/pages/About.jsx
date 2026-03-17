@@ -64,6 +64,7 @@ const About = () => {
           opacity: 0,
           borderRadius: "2rem",
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: panels[i + 1],
             start: "top bottom",
@@ -79,6 +80,7 @@ const About = () => {
           scale: 0.9,
           borderRadius: "2rem",
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: panel,
             start: "top bottom",
@@ -97,6 +99,7 @@ const About = () => {
             y: 0, 
             opacity: 1, 
             ease: "none",
+            force3D: true,
             scrollTrigger: {
               trigger: panel,
               start: "top 70%", // wait until panel is mostly in view
@@ -117,7 +120,7 @@ const About = () => {
       {/* Hero Header panel */}
       <div className="gsap-panel h-screen w-full relative z-10 bg-black pt-40 px-6 md:px-20">
         <div className="panel-inner w-full h-full relative flex flex-col items-center justify-center text-center overflow-hidden">
-          <h1 className='font-[fonthero] text-white text-[15vw] md:text-[12vw] uppercase leading-none tracking-tighter'>
+          <h1 className='font-[fonthero] text-white text-[18vw] md:text-[12vw] uppercase leading-none tracking-tighter'>
             The Essence
           </h1>
           <p className='text-sm md:text-xl uppercase tracking-[0.4em] text-white/70 mt-4 md:mt-8 max-w-2xl'>
@@ -151,12 +154,12 @@ const About = () => {
               <span className="text-[#c0e067] font-mono text-xs md:text-sm tracking-[0.3em] uppercase block mb-4 drop-shadow-md">
                 {data.subtitle}
               </span>
-              <h2 className="text-white font-[fonthero] text-6xl md:text-8xl lg:text-9xl uppercase leading-[0.9] tracking-tighter mb-8 drop-shadow-2xl">
+              <h2 className="text-white font-[fonthero] text-5xl md:text-8xl lg:text-9xl uppercase leading-[0.9] tracking-tighter mb-8 drop-shadow-2xl">
                 {data.title.split(' ')[0]} <br className="hidden md:block" />
                 {data.title.split(' ').slice(1).join(' ')}
               </h2>
               <div className="w-[60px] h-[2px] bg-white/40 mb-6 drop-shadow-md"></div>
-              <p className="text-white/80 text-lg md:text-2xl font-[fontnormal] leading-relaxed max-w-2xl drop-shadow-lg">
+              <p className="text-white/80 text-base md:text-2xl font-[fontnormal] leading-relaxed max-w-2xl drop-shadow-lg">
                 {data.desc}
               </p>
             </div>

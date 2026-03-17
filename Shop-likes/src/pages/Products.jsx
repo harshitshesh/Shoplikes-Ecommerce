@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef, useDeferredValue } from 'react'
+import React, { useState, useEffect, useRef, useDeferredValue, useContext } from 'react'
 import Productscard from '../components/products/Productscard'
 import Footer from '../components/comon/Footer'
 import ProductModal from '../components/products/ProductModal'
 import CartModal from '../components/products/CartModal'
+import { Navbarcontext } from '../context/Navcontext'
 
 const Products = () => {
+  const { setIsAnyModalOpen } = useContext(Navbarcontext)
   const [searchQuery, setSearchQuery] = useState("")
   const [debouncedQuery, setDebouncedQuery] = useState("")
   const [isSticky, setIsSticky] = useState(false)
@@ -24,6 +26,11 @@ const Products = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [cart, setCart] = useState([])
+
+  // Track global modal state
+  useEffect(() => {
+    setIsAnyModalOpen(isModalOpen || isCartOpen)
+  }, [isModalOpen, isCartOpen, setIsAnyModalOpen])
 
   const handleOpenModal = (product) => {
     setSelectedProduct(product)
@@ -119,9 +126,9 @@ const Products = () => {
       {/* Sticky Search & Cart Bar */}
       <div
         className={`
-          sticky top-0 z-[110] px-4 md:px-10 transition-all duration-300 flex justify-center
+          sticky top-[95px] md:top-0 z-[110] px-4 md:px-10 transition-all duration-300 flex justify-center
           ${isSticky
-            ? 'py-3 md:py-4 bg-white/90 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.05)] border-b border-neutral-100'
+            ? 'py-3 md:py-4'
             : 'py-0 h-0 overflow-hidden opacity-0 pointer-events-none'
           }
         `}

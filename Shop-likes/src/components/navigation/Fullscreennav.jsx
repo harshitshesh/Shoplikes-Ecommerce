@@ -10,7 +10,7 @@ const Fullscreennav = () => {
     const navTL = useRef(null)
 
 
-    const [navopen, setnavopen] = useContext(Navbarcontext)
+    const { navopen, setnavopen } = useContext(Navbarcontext)
     
     // Disable body scroll when menu is open
     React.useEffect(() => {
@@ -81,12 +81,9 @@ const Fullscreennav = () => {
                     </div>
 
 
-                    <div onClick={() => setnavopen(false)} className='h-24 w-24 mt-2 mr-2 cursor-pointer relative '>
-
-                        <div className='h-32 w-0.5 -rotate-47 origin-top absolute bg-white'></div>
-
-                        <div className='h-32 w-0.5 right-0 rotate-47 origin-top absolute bg-white'></div>
-
+                    <div onClick={() => setnavopen(false)} className='h-16 w-16 md:h-24 md:w-24 mt-4 mr-4 cursor-pointer relative flex items-center justify-center'>
+                        <div className='h-10 w-0.5 md:h-32 rotate-45 absolute bg-white'></div>
+                        <div className='h-10 w-0.5 md:h-32 -rotate-45 absolute bg-white'></div>
                     </div>
 
 
@@ -96,9 +93,9 @@ const Fullscreennav = () => {
 
 
                     <Link to="/products" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Products</h1>
+                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>Products</h1>
 
-                        <div className='movelink absolute flex gap-48 top-0 bg-amber-200 text-black'>
+                        <div className='movelink absolute hidden md:flex gap-48 top-0 bg-amber-200 text-black'>
                             <div className='movex flex gap-4  items-center'>
                                 <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>More Than Shopping</h2>
                                 <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg.jpg" alt="" loading="lazy" decoding="async" />
@@ -117,9 +114,9 @@ const Fullscreennav = () => {
                     </Link>
 
                     <Link to="/about" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>About</h1>
+                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>About</h1>
 
-                        <div className='movelink absolute flex gap-48 top-0 bg-amber-200 text-black'>
+                        <div className='movelink absolute hidden md:flex gap-48 top-0 bg-amber-200 text-black'>
                             <div className='movex flex gap-4  items-center'>
                                 <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Driven By Quality</h2>
                                 <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg2.jpg" alt="" loading="lazy" decoding="async" />
@@ -138,9 +135,9 @@ const Fullscreennav = () => {
                     </Link>
 
                     <Link to="/contact" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Contact</h1>
+                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>Contact</h1>
 
-                        <div className='movelink absolute flex gap-56 top-0 bg-amber-200 text-black'>
+                        <div className='movelink absolute hidden md:flex gap-56 top-0 bg-amber-200 text-black'>
                             <div className='movex flex gap-4  items-center'>
                                 <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Let's Connect</h2>
                                 <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg4.jpg" alt="" loading="lazy" decoding="async" />
@@ -159,9 +156,9 @@ const Fullscreennav = () => {
                     </Link>
 
                     <Link to="/" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Home</h1>
+                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>Home</h1>
 
-                        <div className='movelink absolute flex gap-48 top-0 bg-amber-200 text-black'>
+                        <div className='movelink absolute hidden md:flex gap-48 top-0 bg-amber-200 text-black'>
                             <div className='movex flex gap-4  items-center'>
                                 <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Deals You’ll Love</h2>
                                 <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg6.jpg" alt="" loading="lazy" decoding="async" />
