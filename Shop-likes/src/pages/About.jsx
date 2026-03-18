@@ -12,33 +12,33 @@ const About = () => {
   const cardsData = [
     {
       img: "img2",
-      subtitle: "01 — The Genesis",
-      title: "Visionary Threads",
-      desc: "Every collection begins with a blank canvas and a relentless pursuit of perfection. We source the finest materials to construct garments that speak volumes in their silence."
+      subtitle: "Our Approach",
+      title: "Timeless Style",
+      desc: "Inspired by modern trends while staying true to classic fashion values. We design clothing that feels natural, comfortable, and easy to wear .Our goal is to deliver style that fits seamlessly into daily life."
     },
     {
       img: "img4",
-      subtitle: "02 — The Craft",
-      title: "Artisan Mastery",
-      desc: "Our silhouettes endure time. We blend traditional tailoring with avant-garde aesthetics to ensure every stitch holds a purposeful place in your wardrobe."
+      subtitle: "Our Mission",
+      title: "Smart Shopping",
+      desc: "Our mission is to provide fashion that fits both style and budget . We focus on delivering products that people can trust and enjoy daily . Every item reflects our commitment to quality and customer satisfaction."
     },
     {
       img: "img6",
-      subtitle: "03 — The Aesthetic",
-      title: "Modern Solitude",
-      desc: "Embracing minimalism isn't about having less; it's about making room for more of what matters. A curated aesthetic for the discerning individual."
+      subtitle: "Our Purpose",
+      title: "Real Value",
+      desc: " Our mission is to provide fashion that fits both style and budget . We focus on delivering products that people can trust and enjoy daily ."
     },
     {
       img: "img7",
-      subtitle: "04 — The Ethics",
-      title: "Sustainable Ethos",
-      desc: "Luxury redefined through responsibility. We believe in fashion that leaves a lasting impression on you, without leaving a scar on our planet."
+      subtitle: "Our Quality",
+      title: "Premium Standards",
+      desc: "We ensure every product meets high standards of quality and durability. Each item is tested to provide comfort, reliability, and long lasting use . Our focus remains on delivering products that truly add value daily."
     },
     {
       img: "img9",
-      subtitle: "05 — The Horizon",
-      title: "Forward Motion",
-      desc: "We don't just follow trends—we anticipate the future. Pushing boundaries and redefining the modern uniform for generations to come."
+      subtitle: "Our Promise",
+      title: "Easy Experience",
+      desc: "We make your shopping journey simple, smooth, and completely hassle free. From browsing to delivery, every step is designed for your convenience. "
     }
   ]
 
@@ -50,8 +50,8 @@ const About = () => {
       ScrollTrigger.create({
         trigger: panel,
         start: "top top",
-        pin: true, 
-        pinSpacing: false,
+       
+       
         id: `pin-${i}`
       })
 
@@ -103,7 +103,7 @@ const About = () => {
             scrollTrigger: {
               trigger: panel,
               start: "top 70%", // wait until panel is mostly in view
-              end: "top 30%",
+              end: "top 20%",
               scrub: true
             }
           }
@@ -124,7 +124,7 @@ const About = () => {
             The Essence
           </h1>
           <p className='text-sm md:text-xl uppercase tracking-[0.4em] text-white/70 mt-4 md:mt-8 max-w-2xl'>
-            Curated luxury for the modern visionary. Scroll to discover.
+           Passion for simple fashion . Focused on quality essentials .
           </p>
         </div>
       </div>
@@ -182,7 +182,7 @@ const About = () => {
             </h2>
             <div className='flex flex-col md:flex-row gap-10 items-end justify-between'>
               <p className="text-white/70 max-w-md text-sm md:text-xl font-[fontnormal] leading-relaxed uppercase tracking-widest">
-                Join the conversation. Elevate your presence today.
+                Confidence begins with what you choose to wear.
               </p>
             </div>
           </div>

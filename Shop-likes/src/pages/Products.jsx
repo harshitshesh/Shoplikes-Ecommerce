@@ -85,7 +85,7 @@ const Products = () => {
               Our <br />Products
             </h2>
             <p className='text-xl md:text-2xl text-neutral-500 mt-6 max-w-xl'>
-              Explore our curated selection of premium essentials, designed for the modern lifestyle.
+              Upgrade your lifestyle with products designed for comfort and style .
             </p>
           </div>
 
