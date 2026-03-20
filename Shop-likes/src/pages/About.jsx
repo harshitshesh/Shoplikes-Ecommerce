@@ -3,6 +3,7 @@ import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from 'gsap/all'
 import Footer from '../components/comon/Footer'
+import Video from '../components/home/Video'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -17,13 +18,13 @@ const About = () => {
       desc: "Inspired by modern trends while staying true to classic fashion values. We design clothing that feels natural, comfortable, and easy to wear .Our goal is to deliver style that fits seamlessly into daily life."
     },
     {
-      img: "img4",
+      img: "menwomanmodle",
       subtitle: "Our Mission",
       title: "Smart Shopping",
       desc: "Our mission is to provide fashion that fits both style and budget . We focus on delivering products that people can trust and enjoy daily . Every item reflects our commitment to quality and customer satisfaction."
     },
     {
-      img: "img6",
+      img: "shirt",
       subtitle: "Our Purpose",
       title: "Real Value",
       desc: " Our mission is to provide fashion that fits both style and budget . We focus on delivering products that people can trust and enjoy daily ."
@@ -133,7 +134,7 @@ const About = () => {
       {cardsData.map((data, index) => (
         <div 
           key={index} 
-          className="gsap-panel h-[100dvh] md:h-screen w-full relative flex items-center justify-center bg-transparent"
+          className="gsap-panel h-[100vh] md:h-screen w-full relative flex items-center justify-center bg-transparent"
           style={{ zIndex: index + 20 }} // Increasing Z-index ensures the next panel inherently spans OVER the previous
         >
           {/* Inner container handles the GSAP Scaling Effect smoothly */}
@@ -169,12 +170,21 @@ const About = () => {
 
       {/* Big Format Statement Section gracefully concludes the stack */}
       <div className="gsap-panel h-screen w-full relative bg-black flex items-center justify-center px-6" style={{ zIndex: 100 }}>
-        <div className="panel-inner w-full xl:max-w-6xl h-[60vh] md:h-[70vh] rounded-[3rem] md:rounded-[5rem] overflow-hidden relative shadow-2xl border border-white/10 group">
-          <img 
-            className="w-full h-full object-cover grayscale transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:scale-105" 
-            src="../img/img3.jpg" 
+        <div className="panel-inner w-full xl:max-w-6xl h-[62vh] md:h-[70vh] rounded-[3rem] md:rounded-[5rem] overflow-hidden relative shadow-2xl border border-white/10 group">
+          {/* <img 
+            className="w-full h-full  object-fit object-contain grayscale transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:scale-105" 
+            src="../img/womantop.jpg" 
             alt="Brand Statement" 
-          />
+          /> */}
+           <video 
+        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-none grayscale transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:scale-105' 
+        playsInline 
+        autoPlay 
+        loop 
+        muted 
+        preload="auto"
+        src='/video/herovid.mp4' 
+      />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-8 md:p-24 pointer-events-none">
             <span className='text-[#c0e067] font-mono text-xs md:text-sm tracking-[0.4em] uppercase mb-4'>The Final Statement</span>
             <h2 className="text-white font-[fonthero] text-5xl md:text-[6vw] uppercase leading-[0.9] mb-8 max-w-4xl tracking-tighter">

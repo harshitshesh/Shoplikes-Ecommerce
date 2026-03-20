@@ -10,199 +10,199 @@ const products = [
   { 
     id: 1, 
     name: "Premium Autumn Collection", 
-    img: "product1.jpg", 
+    img: "shirt2.jpg", 
     price: "$120", 
     category: "shirt",
     rating: 4.8,
     description: "Experience ultimate comfort with our Premium Autumn Collection. Crafted from high-quality fabrics, this shirt offers a perfect blend of style and durability for the changing seasons.",
-    images: ["product1.jpg", "navimg1.jpg", "img2.jpg"]
+    images: ["product5.jpg", "shirt1.jpg", "shirt5.jpg"]
   },
 
   { 
     id: 2, 
     name: "Classic White Sneakers", 
-    img: "product2.jpg", 
+    img: "shose.jpg", 
     price: "$90", 
     category: "shoes",
     rating: 4.7,
     description: "Step into comfort and style with these classic white sneakers. Designed for everyday wear, they provide a clean look with long-lasting durability.",
-    images: ["product2.jpg", "navimg2.jpg", "img3.jpg"]
+    images: ["shose.jpg", "shose1.jpg", "shose2.jpg"]
   },
 
   { 
     id: 3, 
     name: "Minimalist Leather Watch", 
-    img: "product3.jpg", 
+    img: "watch.jpg", 
     price: "$150", 
     category: "watch",
     rating: 4.9,
     description: "Elevate your style with this minimalist leather watch. A perfect combination of elegance and precision for both casual and formal occasions.",
-    images: ["product3.jpg", "navimg3.jpg", "img4.jpg"]
+    images: ["watch2.jpg", "watch.jpg", "watch3.jpg"]
   },
 
   { 
     id: 4, 
     name: "Casual Denim Jacket", 
-    img: "product4.jpg", 
+    img: "menwomanmodle.jpg", 
     price: "$110", 
     category: "jacket",
     rating: 4.6,
     description: "A timeless denim jacket designed for versatility and comfort. Perfect for layering and enhancing your everyday casual outfits.",
-    images: ["product4.jpg", "navimg4.jpg", "img5.jpg"]
+    images: ["menwomanmodle.jpg", "navimg3.jpg", "hodie3.jpg"]
   },
 
   { 
     id: 5, 
     name: "Urban Street Hoodie", 
-    img: "product5.jpg", 
+    img: "hodie1.jpg", 
     price: "$80", 
     category: "hoodie",
     rating: 4.7,
     description: "Stay warm and stylish with our urban street hoodie. Soft fabric and modern design make it ideal for daily wear.",
-    images: ["product5.jpg", "navimg5.jpg", "img6.jpg"]
+    images: ["hodie.jpg", "hodie2.jpg", "hodie3.jpg"]
   },
 
   { 
     id: 6, 
     name: "Slim Fit Black Jeans", 
-    img: "product6.jpg", 
+    img: "manjeans.jpg", 
     price: "$95", 
     category: "jeans",
     rating: 4.8,
     description: "Designed for a sleek and modern look, these slim fit black jeans offer comfort, flexibility, and style for any occasion.",
-    images: ["product6.jpg", "navimg6.jpg", "img7.jpg"]
+    images: ["jeans.jpg", "jeans2.jpg", "jeans1.jpg"]
   },
 
   { 
     id: 7, 
     name: "Luxury Sunglasses", 
-    img: "product7.jpg", 
+    img: "accesories2.jpg", 
     price: "$70", 
     category: "accessories",
     rating: 4.6,
     description: "Protect your eyes in style with these luxury sunglasses. Lightweight design with premium lenses for maximum comfort.",
-    images: ["product7.jpg", "navimg7.jpg", "img8.jpg"]
+    images: ["accesories6.jpg", "accesories4.jpg", "accesories1.jpg"]
   },
 
   { 
     id: 8, 
     name: "Formal Office Shirt", 
-    img: "product8.jpg", 
+    img: "manmodle.jpg", 
     price: "$85", 
     category: "shirt",
     rating: 4.7,
     description: "A perfect choice for professional settings, this formal office shirt offers a clean look with breathable fabric for all-day comfort.",
-    images: ["product8.jpg", "navimg8.jpg", "img9.jpg"]
+    images: ["shirt3.jpg", "img3.jpg", "manshirt2.jpg"]
   },
 
   { 
     id: 9, 
     name: "Running Sports Shoes", 
-    img: "product9.jpg", 
+    img: "shose2.jpg", 
     price: "$130", 
     category: "shoes",
     rating: 4.9,
     description: "Engineered for performance, these running shoes provide excellent grip, cushioning, and support for active lifestyles.",
-    images: ["product9.jpg", "navimg9.jpg", "img10.jpg"]
+    images: ["shose1.jpg", "shose.jpg", "shose2.jpg"]
   },
 
   { 
     id: 10, 
     name: "Premium Leather Belt", 
-    img: "product10.jpg", 
+    img: "accesories5.jpg", 
     price: "$60", 
     category: "accessories",
     rating: 4.5,
     description: "Complete your outfit with this premium leather belt. Durable, stylish, and suitable for both casual and formal wear.",
-    images: ["product10.jpg", "navimg10.jpg", "img11.jpg"]
+    images: ["accesories3.jpg", "accesories1.jpg", "googles.jpg"]
   },
 
   { 
   id: 11, 
   name: "Men's Casual Cotton Shirt", 
-  img: "product11.jpg", 
+  img: "manshirt1.jpg", 
   price: "$75", 
   category: "mens-shirt",
   rating: 4.7,
   description: "A comfortable cotton shirt designed for everyday wear with a clean and modern look.",
-  images: ["product11.jpg", "navimg11.jpg", "img12.jpg"]
+  images: ["img4.jpg", "shirt5.jpg", "img2.jpg"]
 },
 
 { 
   id: 12, 
   name: "Men's Formal Slim Shirt", 
-  img: "product12.jpg", 
+  img: "shirt4.jpg", 
   price: "$95", 
   category: "mens-shirt",
   rating: 4.8,
   description: "Perfect for office and formal events, this slim fit shirt offers a sharp and elegant style.",
-  images: ["product12.jpg", "navimg12.jpg", "img13.jpg"]
+  images: ["product2.jpg", "manshirt1.jpg", "img5.jpg"]
 },
 
 { 
   id: 13, 
   name: "Men's Classic Chino Pants", 
-  img: "product13.jpg", 
+  img: "manpaint.jpg", 
   price: "$85", 
   category: "mens-pants",
   rating: 4.6,
   description: "Versatile chino pants that combine comfort and style, suitable for both casual and semi-formal looks.",
-  images: ["product13.jpg", "navimg13.jpg", "img14.jpg"]
+  images: ["img4.jpg", "jeans.jpg", "jeans2.jpg"]
 },
 
 { 
   id: 14, 
   name: "Men's Slim Fit Trousers", 
-  img: "product14.jpg", 
+  img: "jeans1.jpg", 
   price: "$100", 
   category: "mens-pants",
   rating: 4.7,
   description: "Modern slim fit trousers designed to provide a sleek look with all-day comfort.",
-  images: ["product14.jpg", "navimg14.jpg", "img15.jpg"]
+  images: ["img5.jpg", "jeans.jpg", "manshirt2.jpg"]
 },
 
 { 
   id: 15, 
   name: "Women's Casual Summer Top", 
-  img: "product15.jpg", 
+  img: "womantop2.jpg", 
   price: "$65", 
   category: "womens-top",
   rating: 4.7,
   description: "Lightweight and stylish summer top perfect for daily wear and relaxed outings.",
-  images: ["product15.jpg", "navimg15.jpg", "img16.jpg"]
+  images: ["product6.jpg", "womantop.jpg", "product4.jpg"]
 },
 
 { 
   id: 16, 
   name: "Women's Elegant Party Dress", 
-  img: "product16.jpg", 
+  img: "womandress4.jpg", 
   price: "$140", 
   category: "womens-dress",
   rating: 4.9,
   description: "A beautifully designed dress that adds elegance and confidence to your special occasions.",
-  images: ["product16.jpg", "navimg16.jpg", "img17.jpg"]
+  images: ["womandress3.jpg", "womandress1.jpg", "product1.jpg"]
 },
 
 { 
   id: 17, 
   name: "Women's Office Wear Shirt", 
-  img: "product17.jpg", 
+  img: "womantop3.jpg", 
   price: "$85", 
   category: "womens-top",
   rating: 4.6,
   description: "Designed for a professional look, this shirt offers comfort and a polished appearance.",
-  images: ["product17.jpg", "navimg17.jpg", "img18.jpg"]
+  images: ["product3.jpg", "navimg.jpg", "img6.jpg"]
 },
 
 { 
   id: 18, 
   name: "Women's Casual Maxi Dress", 
-  img: "product18.jpg", 
+  img: "womandress2.jpg", 
   price: "$120", 
   category: "womens-dress",
   rating: 4.8,
   description: "Flowy and comfortable maxi dress ideal for casual outings and everyday elegance.",
-  images: ["product18.jpg", "navimg18.jpg", "img19.jpg"]
+  images: ["img7.jpg", "womandress3.jpg", "img9.jpg"]
 }
 ]
 
@@ -282,9 +282,13 @@ const Productscard = memo(({ searchQuery = "", onExploreDetail }) => {
           }}
         >
           
-          <div className='w-full h-full overflow-hidden'>
+          <div className='w-full h-full overflow-hidden '>
             <img 
-              className='h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out' 
+              className='h-full w-full object-cover object-center 
+transition-all duration-700 ease-out 
+group-hover:scale-105 
+ 
+group-hover:brightness-75 ' 
               src={`../img/${product.img}`} 
               alt={product.name} 
               loading="lazy"
@@ -293,7 +297,7 @@ const Productscard = memo(({ searchQuery = "", onExploreDetail }) => {
             />
           </div>
 
-          <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 md:p-12'>
+          <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end  p-5 md:p-12'>
             <h3 className='text-white text-2xl md:text-5xl font-[fonthero] mb-1 md:mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out'>
               {product.name}
             </h3>
