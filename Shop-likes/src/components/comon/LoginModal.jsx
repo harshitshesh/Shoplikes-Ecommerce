@@ -40,7 +40,7 @@ const LoginModal = ({ isOpen, onClose, isClosable = true }) => {
             <span className="text-3xl">🛍️</span>
           </div>
           <h2 className="text-3xl font-[fonthero] mb-2 uppercase tracking-tighter">
-            {isClosable ? "Welcome Back" : " Required"}
+            {isClosable ? "Welcome!" : " Required"}
           </h2>
           <p className="text-neutral-500 font-[fontnormal]">
             {isClosable 
