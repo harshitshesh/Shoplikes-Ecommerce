@@ -1,16 +1,28 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from 'gsap/all'
 import Footer from '../components/comon/Footer'
 import Video from '../components/home/Video'
+import { AuthContext } from '../context/AuthContext'
+import { Navbarcontext } from '../context/Navcontext'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const About = () => {
   const containerRef = useRef(null)
+  const footerRef = useRef(null)
+  const { user } = useContext(AuthContext)
+  const { 
+    isLoginModalOpen, 
+    setIsLoginModalOpen, 
+    isLoginClosable, 
+    setIsLoginClosable 
+  } = useContext(Navbarcontext)
+  const [hasAutoTriggered, setHasAutoTriggered] = useState(false)
 
   const cardsData = [
+    // ... (rest of the cardsData is unchanged)
     {
       img: "img2",
       subtitle: "Our Approach",
@@ -44,6 +56,19 @@ const About = () => {
   ]
 
   useGSAP(() => {
+    // LOGIN TRIGGER: Scroll to footer (Automatic Popup - Mandatory)
+    ScrollTrigger.create({
+      trigger: footerRef.current,
+      start: "top 90%",
+      onEnter: () => {
+        if (!user && !hasAutoTriggered) {
+          setIsLoginClosable(true) // Now closable per user request
+          setIsLoginModalOpen(true)
+          setHasAutoTriggered(true)
+        }
+      }
+    })
+
     const panels = gsap.utils.toArray('.gsap-panel')
 
     panels.forEach((panel, i) => {
@@ -113,7 +138,7 @@ const About = () => {
     })
 
     ScrollTrigger.refresh()
-  }, { scope: containerRef })
+  }, { scope: containerRef, dependencies: [user, hasAutoTriggered, isLoginClosable] })
 
   return (
     <div ref={containerRef} className='about-main-container bg-[#0a0a0a] overflow-x-hidden min-h-screen'>
@@ -199,7 +224,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="relative z-[200] bg-[#0a0a0a]">
+      <div ref={footerRef} className="relative z-[200] bg-[#0a0a0a]">
         <Footer />
       </div>
 

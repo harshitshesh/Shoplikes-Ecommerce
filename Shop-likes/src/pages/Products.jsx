@@ -4,13 +4,26 @@ import Footer from '../components/comon/Footer'
 import ProductModal from '../components/products/ProductModal'
 import CartModal from '../components/products/CartModal'
 import { Navbarcontext } from '../context/Navcontext'
+import { AuthContext } from '../context/AuthContext'
 
 const Products = () => {
-  const { setIsAnyModalOpen } = useContext(Navbarcontext)
+  const { user } = useContext(AuthContext)
+  const { 
+    setIsAnyModalOpen, 
+    isLoginModalOpen, 
+    setIsLoginModalOpen, 
+    isLoginClosable, 
+    setIsLoginClosable 
+  } = useContext(Navbarcontext)
+  
   const [searchQuery, setSearchQuery] = useState("")
   const [debouncedQuery, setDebouncedQuery] = useState("")
   const [isSticky, setIsSticky] = useState(false)
   const searchSentinelRef = useRef(null)
+
+  // Auth/Trigger State
+  const [viewedCount, setViewedCount] = useState(0)
+  const [pendingCartAction, setPendingCartAction] = useState(null)
 
   // Debounce search query
   useEffect(() => {
@@ -29,15 +42,29 @@ const Products = () => {
 
   // Track global modal state
   useEffect(() => {
-    setIsAnyModalOpen(isModalOpen || isCartOpen)
-  }, [isModalOpen, isCartOpen, setIsAnyModalOpen])
+    setIsAnyModalOpen(isModalOpen || isCartOpen || isLoginModalOpen)
+  }, [isModalOpen, isCartOpen, isLoginModalOpen, setIsAnyModalOpen])
 
   const handleOpenModal = (product) => {
     setSelectedProduct(product)
     setIsModalOpen(true)
+    // Increment view count when opening a product modal (or viewing detail)
+    setViewedCount(prev => prev + 1)
   }
 
   const handleAddToCart = (product, quantity) => {
+    // TRIGGER CONDITION: Not logged in AND viewed >= 3 products AND clicks Add to Cart
+    if (!user && viewedCount >= 3) {
+      setPendingCartAction({ product, quantity })
+      setIsLoginClosable(true)
+      setIsLoginModalOpen(true)
+      return
+    }
+
+    executeAddToCart(product, quantity)
+  }
+
+  const executeAddToCart = (product, quantity) => {
     setCart(prevCart => {
       const existingItem = prevCart.find(item => item.id === product.id)
       if (existingItem) {
@@ -51,7 +78,24 @@ const Products = () => {
     })
   }
 
+  // Effect to handle pending cart action after login
+  useEffect(() => {
+    if (user && pendingCartAction) {
+      executeAddToCart(pendingCartAction.product, pendingCartAction.quantity)
+      setPendingCartAction(null)
+      setIsLoginClosable(true)
+      setIsLoginModalOpen(false)
+    }
+  }, [user, pendingCartAction])
+
   const handlePlaceOrder = (address) => {
+    if (!user) {
+      alert("⚠️ Authentication Required: Please login to your Google account to proceed with payment.")
+      setIsLoginClosable(false) // Mandatory login for payment
+      setIsLoginModalOpen(true)
+      return
+    }
+
     console.log("Order placed for:", address, "with items:", cart)
     alert(`Thank you ${address.name}! Your order has been placed successfully.`)
     setCart([])
