@@ -217,46 +217,87 @@ const Productscard = memo(({ searchQuery = "", onExploreDetail }) => {
     ), [searchQuery]
   )
 
+  const handleButtonClick = (e, product) => {
+    if (window.innerWidth >= 768) {
+      onExploreDetail && onExploreDetail(product)
+      return
+    }
+
+    const btn = e.currentTarget
+    const slider = btn.querySelector('.btn-slider')
+    
+    gsap.to(slider, {
+      x: '100%',
+      duration: 0.4,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        onExploreDetail && onExploreDetail(product)
+        gsap.set(slider, { x: '-100%' })
+      }
+    })
+  }
+
   useGSAP(() => {
+    const mm = gsap.matchMedia()
     const cards = gsap.utils.toArray(".product-card")
     if (!cards.length) return
 
-    cards.forEach((card, i) => {
-      const isEven = i % 2 === 0
-      const rect = card.getBoundingClientRect()
-      const isInViewport = rect.top < window.innerHeight
-      
-      // Only set initial 'hidden' state if the card is NOT already in viewport
-      // This prevents visible cards from re-rotating on search
-      if (!isInViewport) {
-        gsap.set(card, {
-          opacity: 0,
-          xPercent: isEven ? -50 : 50,
-          rotation: isEven ? -30 : 30,
-          transformOrigin: "center center"
-        })
+    mm.add({
+      isDesktop: "(min-width: 768px)",
+      isMobile: "(max-width: 767px)"
+    }, (context) => {
+      const { isMobile } = context.conditions
 
-        gsap.to(card, {
-          opacity: 1,
-          xPercent: 0,
-          rotation: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          force3D: true,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 100%", // Start when top of card hits bottom of viewport
-            once: true,
-            fastScrollEnd: true,
-          }
-        })
-      } else {
-        // If already in viewport, ensure it's visible and static
-        gsap.set(card, { opacity: 1, xPercent: 0, rotation: 0 })
-      }
+      cards.forEach((card, i) => {
+        const isEven = i % 2 === 0
+        const rect = card.getBoundingClientRect()
+        const isInViewport = rect.top < window.innerHeight
+        
+        // Initial state
+        if (!isInViewport) {
+          gsap.set(card, {
+            opacity: 0,
+            xPercent: isMobile ? 0 : (isEven ? -30 : 30),
+            y: isMobile ? 30 : 0,
+            rotation: isMobile ? 0 : (isEven ? -15 : 15),
+            transformOrigin: "center center"
+          })
+
+          gsap.to(card, {
+            opacity: 1,
+            xPercent: 0,
+            y: 0,
+            rotation: 0,
+            duration: isMobile ? 0.8 : 1.2,
+            ease: "power3.out",
+            force3D: true,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 95%",
+              once: true,
+              fastScrollEnd: true,
+            }
+          })
+        } else {
+          gsap.set(card, { opacity: 1, xPercent: 0, y: 0, rotation: 0 })
+        }
+
+        // Continuous floating title animation on mobile
+        if (isMobile) {
+          const title = card.querySelector('.product-title')
+          gsap.to(title, {
+            y: -5,
+            duration: 1.5 + Math.random(),
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+          })
+        }
+      })
     })
 
     return () => {
+      mm.revert()
       ScrollTrigger.getAll().forEach(st => st.kill())
     }
   }, { scope: containerRef, dependencies: [searchQuery] })
@@ -287,7 +328,6 @@ const Productscard = memo(({ searchQuery = "", onExploreDetail }) => {
               className='h-full w-full object-cover object-center 
 transition-all duration-700 ease-out 
 group-hover:scale-105 
- 
 group-hover:brightness-75 ' 
               src={`../img/${product.img}`} 
               alt={product.name} 
@@ -297,18 +337,19 @@ group-hover:brightness-75 '
             />
           </div>
 
-          <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end  p-5 md:p-12'>
-            <h3 className='text-white text-2xl md:text-5xl font-[fonthero] mb-1 md:mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out'>
+          <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 md:group-hover:opacity-100 max-md:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 md:p-12'>
+            <h3 className='product-title text-white text-2xl md:text-5xl font-[fonthero] mb-1 md:mb-4 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300 ease-out'>
               {product.name}
             </h3>
-            <p className='text-neutral-300 text-lg md:text-2xl mb-4 md:mb-10 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 ease-out delay-75'>
+            <p className='text-neutral-300 text-lg md:text-2xl mb-4 md:mb-10 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300 ease-out delay-75'>
               {product.price}
             </p>
             <button 
-              onClick={() => onExploreDetail && onExploreDetail(product)}
-              className='w-fit uppercase cursor-pointer px-5 py-2 md:px-10 md:py-4 rounded-full text-sm md:text-xl font-[fontnormal] border border-white/50 text-white hover:bg-white hover:text-black hover:border-white transition-colors duration-200 translate-y-4 group-hover:translate-y-0'
+              onClick={(e) => handleButtonClick(e, product)}
+              className='w-fit uppercase cursor-pointer px-5 py-2 md:px-10 md:py-4 rounded-full text-sm md:text-xl font-[fontnormal] border border-white/50 text-white hover:bg-white hover:text-black hover:border-white transition-colors duration-200 translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 relative overflow-hidden'
             >
-              Explore Detail
+              <div className='btn-slider absolute inset-0 bg-white -translate-x-full z-0'></div>
+              <span className='relative z-10'>Explore Detail</span>
             </button>
           </div>
         </div>

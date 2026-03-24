@@ -7,6 +7,7 @@ const ProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
   const modalRef = useRef(null)
   const contentRef = useRef(null)
   const overlayRef = useRef(null)
+  const touchStartX = useRef(0)
 
   useEffect(() => {
     if (isOpen) {
@@ -71,7 +72,20 @@ const ProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
         </button>
 
         {/* Left Side: Image Gallery */}
-        <div className="w-full md:w-1/2 h-[40vh] md:h-auto relative bg-neutral-100 group">
+        <div 
+          className="w-full md:w-1/2 h-[40vh] md:h-auto relative bg-neutral-100 group touch-pan-y"
+          onTouchStart={(e) => {
+            touchStartX.current = e.touches[0].clientX
+          }}
+          onTouchEnd={(e) => {
+            const touchEndX = e.changedTouches[0].clientX
+            const diff = touchStartX.current - touchEndX
+            if (Math.abs(diff) > 50) {
+              if (diff > 0) nextImage()
+              else prevImage()
+            }
+          }}
+        >
           <img 
             src={`../img/${product.images[currentImageIndex]}`} 
             alt={product.name}
@@ -82,13 +96,13 @@ const ProductModal = ({ isOpen, onClose, product, onAddToCart }) => {
             <>
               <button 
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center opacity-0 md:group-hover:opacity-100 max-md:opacity-100 transition-opacity"
               >
                 ←
               </button>
               <button 
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center opacity-0 md:group-hover:opacity-100 max-md:opacity-100 transition-opacity"
               >
                 →
               </button>

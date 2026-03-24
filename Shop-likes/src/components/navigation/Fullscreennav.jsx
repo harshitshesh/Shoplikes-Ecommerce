@@ -6,11 +6,23 @@ import { Navbarcontext } from '../../context/Navcontext'
 
 const Fullscreennav = () => {
     const allnavlinksref = useRef(null)
-
     const navTL = useRef(null)
-
-
     const { navopen, setnavopen } = useContext(Navbarcontext)
+    const [activeLink, setActiveLink] = React.useState(null)
+
+    const handleLinkClick = (e, path) => {
+        if (window.innerWidth >= 768) {
+            setnavopen(false)
+            return
+        }
+
+        if (activeLink !== path) {
+            e.preventDefault()
+            setActiveLink(path)
+        } else {
+            setnavopen(false)
+        }
+    }
     
     // Disable body scroll when menu is open
     React.useEffect(() => {
@@ -92,86 +104,86 @@ const Fullscreennav = () => {
                 <div className='navlinks mt-10'>
 
 
-                    <Link to="/products" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>Products</h1>
+                    <Link to="/products" onClick={(e) => handleLinkClick(e, '/products')} className='link block origin-top relative border-y-[0.5px] overflow-hidden' style={{ willChange: 'transform, opacity' }}>
+                        <h1 className='font-[fontnormal] text-[10vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold py-2'>Products</h1>
 
-                        <div className='movelink absolute hidden md:flex gap-48 top-0 bg-amber-200 text-black'>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>More Than Shopping</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg.jpg" alt="" loading="lazy" decoding="async" />
+                        <div className={`movelink absolute inset-0 flex items-center gap-48 bg-amber-200 text-black transition-opacity duration-300 ${activeLink === '/products' ? 'opacity-100' : 'max-md:opacity-0'}`} style={{ willChange: 'transform' }}>
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>More Than Shopping</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg.jpg" alt="" loading="lazy" decoding="async" />
 
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>More Than Shopping</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg1.jpg" alt="" loading="lazy" decoding="async" />
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>More Than Shopping</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg1.jpg" alt="" loading="lazy" decoding="async" />
                             </div>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>More Than Shopping</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg.jpg" alt="" loading="lazy" decoding="async" />
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>More Than Shopping</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg.jpg" alt="" loading="lazy" decoding="async" />
 
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>More Than Shopping</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg1.jpg" alt="" loading="lazy" decoding="async" />
-                            </div>
-                        </div>
-                    </Link>
-
-                    <Link to="/about" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>About</h1>
-
-                        <div className='movelink absolute hidden md:flex gap-48 top-0 bg-amber-200 text-black'>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Driven By Quality</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg2.jpg" alt="" loading="lazy" decoding="async" />
-
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Driven By Quality</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg3.jpg" alt="" loading="lazy" decoding="async" />
-                            </div>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Driven By Quality</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg2.jpg" alt="" loading="lazy" decoding="async" />
-
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Driven By Quality</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg3.jpg" alt="" loading="lazy" decoding="async" />
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>More Than Shopping</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg1.jpg" alt="" loading="lazy" decoding="async" />
                             </div>
                         </div>
                     </Link>
 
-                    <Link to="/contact" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>Contact</h1>
+                    <Link to="/about" onClick={(e) => handleLinkClick(e, '/about')} className='link block origin-top relative border-y-[0.5px] overflow-hidden' style={{ willChange: 'transform, opacity' }}>
+                        <h1 className='font-[fontnormal] text-[10vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold py-2'>About</h1>
 
-                        <div className='movelink absolute hidden md:flex gap-56 top-0 bg-amber-200 text-black'>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Let's Connect</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg4.jpg" alt="" loading="lazy" decoding="async" />
+                        <div className={`movelink absolute inset-0 flex items-center gap-48 bg-amber-200 text-black transition-opacity duration-300 ${activeLink === '/about' ? 'opacity-100' : 'max-md:opacity-0'}`} style={{ willChange: 'transform' }}>
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Driven By Quality</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg2.jpg" alt="" loading="lazy" decoding="async" />
 
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Let's Connect</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg5.jpg" alt="" loading="lazy" decoding="async" />
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Driven By Quality</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg3.jpg" alt="" loading="lazy" decoding="async" />
                             </div>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Let's Connect</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg4.jpg" alt="" loading="lazy" decoding="async" />
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Driven By Quality</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg2.jpg" alt="" loading="lazy" decoding="async" />
 
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Let's Connect</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg5.jpg" alt="" loading="lazy" decoding="async" />
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Driven By Quality</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg3.jpg" alt="" loading="lazy" decoding="async" />
                             </div>
                         </div>
                     </Link>
 
-                    <Link to="/" onClick={() => setnavopen(false)} className='link block origin-top relative border-y-[0.5px]'>
-                        <h1 className='font-[fontnormal] text-[12vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold'>Home</h1>
+                    <Link to="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className='link block origin-top relative border-y-[0.5px] overflow-hidden' style={{ willChange: 'transform, opacity' }}>
+                        <h1 className='font-[fontnormal] text-[10vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold py-2'>Contact</h1>
 
-                        <div className='movelink absolute hidden md:flex gap-48 top-0 bg-amber-200 text-black'>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Deals You’ll Love</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg6.jpg" alt="" loading="lazy" decoding="async" />
+                        <div className={`movelink absolute inset-0 flex items-center gap-56 bg-amber-200 text-black transition-opacity duration-300 ${activeLink === '/contact' ? 'opacity-100' : 'max-md:opacity-0'}`} style={{ willChange: 'transform' }}>
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Let's Connect</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg4.jpg" alt="" loading="lazy" decoding="async" />
 
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Deals You’ll Love</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg7.jpg" alt="" loading="lazy" decoding="async" />
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Let's Connect</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg5.jpg" alt="" loading="lazy" decoding="async" />
                             </div>
-                            <div className='movex flex gap-4  items-center'>
-                                <h2 className='whitespace-nowrap font-[fontnormal]   text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Deals You’ll Love</h2>
-                                <img className='h-16  object-contain shadow-0 rounded-3xl' src="../img/navimg6.jpg" alt="" loading="lazy" decoding="async" />
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Let's Connect</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg4.jpg" alt="" loading="lazy" decoding="async" />
 
-                                <h2 className=' whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-[7vw]  text-center font-bold'>Deals You’ll Love</h2>
-                                <img className='h-16  object-contain  shrink-0 rounded-3xl' src="../img/navimg7.jpg" alt="" loading="lazy" decoding="async" />
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Let's Connect</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg5.jpg" alt="" loading="lazy" decoding="async" />
+                            </div>
+                        </div>
+                    </Link>
+
+                    <Link to="/" onClick={(e) => handleLinkClick(e, '/')} className='link block origin-top relative border-y-[0.5px] overflow-hidden' style={{ willChange: 'transform, opacity' }}>
+                        <h1 className='font-[fontnormal] text-[10vw] md:text-[8vw] uppercase leading-tight md:leading-[7vw] text-center font-bold py-2'>Home</h1>
+
+                        <div className={`movelink absolute inset-0 flex items-center gap-48 bg-amber-200 text-black transition-opacity duration-300 ${activeLink === '/' ? 'opacity-100' : 'max-md:opacity-0'}`} style={{ willChange: 'transform' }}>
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Deals You’ll Love</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg6.jpg" alt="" loading="lazy" decoding="async" />
+
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Deals You’ll Love</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg7.jpg" alt="" loading="lazy" decoding="async" />
+                            </div>
+                            <div className='movex h-full flex gap-4 items-center'>
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Deals You’ll Love</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg6.jpg" alt="" loading="lazy" decoding="async" />
+
+                                <h2 className='whitespace-nowrap font-[fontnormal] text-[8vw] uppercase leading-none text-center font-bold'>Deals You’ll Love</h2>
+                                <img className='h-[70%] object-contain rounded-2xl' src="../img/navimg7.jpg" alt="" loading="lazy" decoding="async" />
                             </div>
                         </div>
                     </Link>
