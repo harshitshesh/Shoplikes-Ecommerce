@@ -98,4 +98,4 @@ git clone YOUR_REPO_LINK
 npm install
 
 # Run the project
-npm start
+npm run dev
