@@ -22,7 +22,6 @@ const About = () => {
   const [hasAutoTriggered, setHasAutoTriggered] = useState(false)
 
   const cardsData = [
-    // ... (rest of the cardsData is unchanged)
     {
       img: "img2",
       subtitle: "Our Approach",
@@ -56,13 +55,12 @@ const About = () => {
   ]
 
   useGSAP(() => {
-    // LOGIN TRIGGER: Scroll to footer (Automatic Popup - Mandatory)
     ScrollTrigger.create({
       trigger: footerRef.current,
       start: "top 90%",
       onEnter: () => {
         if (!user && !hasAutoTriggered) {
-          setIsLoginClosable(true) // Now closable per user request
+          setIsLoginClosable(true) 
           setIsLoginModalOpen(true)
           setHasAutoTriggered(true)
         }
@@ -72,7 +70,6 @@ const About = () => {
     const panels = gsap.utils.toArray('.gsap-panel')
 
     panels.forEach((panel, i) => {
-      // Pin current panel so next panel scrolls *OVER* it because of pinSpacing: false
       ScrollTrigger.create({
         trigger: panel,
         start: "top top",
@@ -83,7 +80,6 @@ const About = () => {
 
       const inner = panel.querySelector('.panel-inner')
       
-      // If there is a NEXT panel, scale this current panel DOWN as the next panel scrolls UP
       if (i < panels.length - 1) {
         gsap.to(inner, {
           scale: 0.85,
@@ -100,7 +96,6 @@ const About = () => {
         })
       }
       
-      // If there is a PREVIOUS panel, scale this current panel UP as it scrolls IN
       if (i > 0) {
         gsap.from(inner, {
           scale: 0.9,
@@ -116,7 +111,6 @@ const About = () => {
         })
       }
 
-      // Text Entrance Animation (Fades Up gracefully as the panel comes into view)
       const content = panel.querySelector('.panel-content')
       if (content) {
         gsap.fromTo(content,
@@ -155,27 +149,22 @@ const About = () => {
         </div>
       </div>
 
-      {/* Structured Overlapping Panels */}
       {cardsData.map((data, index) => (
         <div 
           key={index} 
           className="gsap-panel h-[100vh] md:h-screen w-full relative flex items-center justify-center bg-transparent"
           style={{ zIndex: index + 20 }} // Increasing Z-index ensures the next panel inherently spans OVER the previous
         >
-          {/* Inner container handles the GSAP Scaling Effect smoothly */}
           <div className="panel-inner absolute inset-0 w-full h-full bg-black overflow-hidden shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
             
-            {/* Background Image validated from your public folder */}
             <img 
               className="panel-img w-full h-full object-top object-cover opacity-80"
               src={`../img/${data.img}.jpg`} 
               alt={data.title}
             />
             
-            {/* Dark Overlay for Text Pop */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
 
-            {/* Premium Typographic Content */}
             <div className="panel-content absolute inset-0 w-full h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-end pb-24 md:pb-32 text-left pointer-events-none">
               <span className="text-[#c0e067] font-mono text-xs md:text-sm tracking-[0.3em] uppercase block mb-4 drop-shadow-md">
                 {data.subtitle}
@@ -193,14 +182,9 @@ const About = () => {
         </div>
       ))}
 
-      {/* Big Format Statement Section gracefully concludes the stack */}
       <div className="gsap-panel h-screen w-full relative bg-black flex items-center justify-center px-6" style={{ zIndex: 100 }}>
         <div className="panel-inner w-full xl:max-w-6xl h-[62vh] md:h-[70vh] rounded-[3rem] md:rounded-[5rem] overflow-hidden relative shadow-2xl border border-white/10 group">
-          {/* <img 
-            className="w-full h-full  object-fit object-contain grayscale transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:scale-105" 
-            src="../img/womantop.jpg" 
-            alt="Brand Statement" 
-          /> */}
+       
            <video 
         className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-none grayscale transition-all duration-[2s] ease-out group-hover:grayscale-0 group-hover:scale-105' 
         playsInline 

@@ -40,7 +40,6 @@ const Products = () => {
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [cart, setCart] = useState([])
 
-  // Track global modal state
   useEffect(() => {
     setIsAnyModalOpen(isModalOpen || isCartOpen || isLoginModalOpen)
   }, [isModalOpen, isCartOpen, isLoginModalOpen, setIsAnyModalOpen])
@@ -48,12 +47,10 @@ const Products = () => {
   const handleOpenModal = (product) => {
     setSelectedProduct(product)
     setIsModalOpen(true)
-    // Increment view count when opening a product modal (or viewing detail)
     setViewedCount(prev => prev + 1)
   }
 
   const handleAddToCart = (product, quantity) => {
-    // TRIGGER CONDITION: Not logged in AND viewed >= 3 products AND clicks Add to Cart
     if (!user && viewedCount >= 3) {
       setPendingCartAction({ product, quantity })
       setIsLoginClosable(true)
@@ -78,7 +75,6 @@ const Products = () => {
     })
   }
 
-  // Effect to handle pending cart action after login
   useEffect(() => {
     if (user && pendingCartAction) {
       executeAddToCart(pendingCartAction.product, pendingCartAction.quantity)
@@ -164,10 +160,8 @@ const Products = () => {
         </div>
       </div>
 
-      {/* Sentinel element - triggers sticky when scrolled past */}
       <div ref={searchSentinelRef} className='h-0' />
 
-      {/* Sticky Search & Cart Bar */}
       <div
         className={`
           sticky top-[95px] md:top-0 z-[110] px-4 md:px-10 transition-all duration-300 flex justify-center
